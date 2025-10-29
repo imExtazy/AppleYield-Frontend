@@ -5,19 +5,19 @@ export const MOCK_MONTHS: ServiceMonth[] = [
     month_id: 1,
     month_name: 'Январь',
     main_value: 'Темп: -5°C\nОсадки: 30 мм',
-    image_url: 'https://via.placeholder.com/300x150?text=January',
+    image_url: '/default_img.jpeg',
   },
   {
     month_id: 2,
     month_name: 'Февраль',
     main_value: 'Темп: -3°C\nОсадки: 25 мм',
-    image_url: 'https://via.placeholder.com/300x150?text=February',
+    image_url: '/default_img.jpeg',
   },
   {
     month_id: 3,
     month_name: 'Март',
     main_value: 'Темп: +2°C\nОсадки: 28 мм',
-    image_url: 'https://via.placeholder.com/300x150?text=March',
+    image_url: '/default_img.jpeg',
   },
 ];
 
@@ -27,7 +27,7 @@ export function MOCK_MONTH_BY_ID(id: number): ServiceMonth {
       month_id: id,
       month_name: `Месяц #${id}`,
       main_value: 'Нет данных',
-      image_url: 'https://via.placeholder.com/300x150?text=No+Image',
+      image_url: '/default_img.jpeg',
     }
   );
 }

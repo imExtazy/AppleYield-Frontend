@@ -11,8 +11,21 @@ export function Breadcrumbs({ currentTitle }: Props) {
     return (
       <nav aria-label="breadcrumb" style={{ marginBottom: 12 }}>
         <ol className="breadcrumb">
+          <li className="breadcrumb-item active" aria-current="page">Главная</li>
+        </ol>
+      </nav>
+    );
+  }
+
+  if (path.startsWith('/months')) {
+    const isList = path === '/months';
+    return (
+      <nav aria-label="breadcrumb" style={{ marginBottom: 12 }}>
+        <ol className="breadcrumb">
           <li className="breadcrumb-item"><a href="/">Главная</a></li>
-          <li className="breadcrumb-item active" aria-current="page">Месяцы</li>
+          {isList ? (
+            <li className="breadcrumb-item active" aria-current="page">Месяцы</li>
+          ) : null}
         </ol>
       </nav>
     );
@@ -24,7 +37,7 @@ export function Breadcrumbs({ currentTitle }: Props) {
       <nav aria-label="breadcrumb" style={{ marginBottom: 12 }}>
         <ol className="breadcrumb">
           <li className="breadcrumb-item"><a href="/">Главная</a></li>
-          <li className="breadcrumb-item"><a href="/">Месяцы</a></li>
+          <li className="breadcrumb-item"><a href="/months">Месяцы</a></li>
           <li className="breadcrumb-item active" aria-current="page">{currentTitle || `#${id}`}</li>
         </ol>
       </nav>
