@@ -8,7 +8,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
 import HomeListPage from './pages/HomeListPage'
 import MonthDetailPage from './pages/MonthDetailPage'
-import CalculationPage from './pages/CalculationPage'
 
 const router = createBrowserRouter([
   {
@@ -18,13 +17,12 @@ const router = createBrowserRouter([
       { index: true, element: <LandingPage /> },
       { path: 'months', element: <HomeListPage /> },
       { path: 'month/:id', element: <MonthDetailPage /> },
-      { path: 'months_calculation/:id', element: <CalculationPage /> },
     ],
   },
 ])
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
+  //<StrictMode>
+  <RouterProvider router={router} />
+  //</StrictMode>,
 )
