@@ -14,8 +14,11 @@ export async function getMonths(q: string = ''): Promise<ServiceMonth[]> {
     return await httpRequest<ServiceMonth[]>(`/api/months${query}`);
   } catch (e) {
     const status = (e as any)?.status as number | undefined;
-    if (isNetworkError(e) || (typeof status === 'number' && status >= 500)) {
-      return MOCK_MONTHS;
+    if (isNetworkError(e) || (typeof status === 'number' && status >= 400)) {
+      const qLower = (q || '').trim().toLowerCase();
+      const data = MOCK_MONTHS;
+      if (!qLower) return data;
+      return data.filter(m => m.month_name.toLowerCase().includes(qLower));
     }
     throw e;
   }
@@ -26,7 +29,7 @@ export async function getMonth(id: number): Promise<ServiceMonth> {
     return await httpRequest<ServiceMonth>(`/api/months/${id}`);
   } catch (e) {
     const status = (e as any)?.status as number | undefined;
-    if (isNetworkError(e) || (typeof status === 'number' && status >= 500)) {
+    if (isNetworkError(e) || (typeof status === 'number' && status >= 400)) {
       return MOCK_MONTH_BY_ID(id);
     }
     throw e;

@@ -30,7 +30,16 @@ export default function MonthDetailPage() {
     <>
       <Breadcrumbs currentTitle={data.month_name} />
       <div className="ay-detail-card">
-        <img className="ay-detail-image" src={imgSrc || ''} alt={data.month_name} onError={() => setImgSrc('/default_service.png')} />
+        <img
+          className="ay-detail-image"
+          src={imgSrc || ''}
+          alt={data.month_name}
+          onError={() => {
+            const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+            const fallback = `${base}default_img.jpeg`;
+            if (imgSrc !== fallback) setImgSrc(fallback);
+          }}
+        />
         <div className="ay-detail-info-wrapper">
           <div className="ay-detail-info">
             <h1 className="ay-detail-title">{data.month_name}</h1>

@@ -1,4 +1,5 @@
 import { Breadcrumbs } from '../components/Breadcrumbs';
+import { Link } from 'react-router-dom';
 
 export default function LandingPage() {
   return (
@@ -16,7 +17,7 @@ export default function LandingPage() {
                 Расчитайте потенциальную урожайность для сада антоновки на основе климатических показателей в выбранные месяцы. 
                 Для расчета необходимо ввести среднюю температуру и суммарные осадки в выбранные месяцы.
             </p>
-            <a className="ay-btn-outline" href="/months">К услугам</a>
+            <Link className="ay-btn-outline" to="/months">К услугам</Link>
           </div>
         </div>
       </section>

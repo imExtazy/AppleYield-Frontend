@@ -155,6 +155,13 @@ body {
 
 .ay-grid { display: grid; gap: 16px; }
 .ay-grid-3 { display: grid; grid-template-columns: repeat(3, 300px); gap: 24px; justify-content: center; margin-top: 50px; }
+/* Responsive grid */
+@media (max-width: 991.98px) {
+  .ay-grid-3 { grid-template-columns: repeat(2, minmax(280px, 1fr)); }
+}
+@media (max-width: 575.98px) {
+  .ay-grid-3 { grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }
+}
 
 /* Larger inputs and controls for application editing */
 .ay-input-lg { height: 30px; padding: 0 10px; border: 1px solid #000; border-radius: 5px; font-size: 14px; width: 200px; box-sizing: border-box; }
@@ -165,6 +172,11 @@ body {
 .ay-card-inner { width: 250px; height: 350px; margin: 25px auto 0; display: flex; flex-direction: column; align-items: center; gap: 35px; }
 
 .ay-card img { width: 250px; height: 150px; object-fit: cover; border-radius: 20px; background: #fff; }
+@media (max-width: 575.98px) {
+  .ay-card { width: 100%; height: auto; }
+  .ay-card-inner { width: 100%; height: auto; padding: 16px; margin: 0; }
+  .ay-card img { width: 100%; height: 140px; border-radius: 12px; }
+}
 
 .ay-card h3 { margin: 0; font-size: 16px; text-align: center; }
 .ay-params { font-size: 14px; color: #333; white-space: pre-line; }

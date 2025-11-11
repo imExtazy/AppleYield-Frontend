@@ -22,7 +22,7 @@ export function Breadcrumbs({ currentTitle }: Props) {
     return (
       <nav aria-label="breadcrumb" style={{ marginBottom: 12 }}>
         <ol className="breadcrumb">
-          <li className="breadcrumb-item"><a href="/">Главная</a></li>
+          <li className="breadcrumb-item"><Link to="/">Главная</Link></li>
           {isList ? (
             <li className="breadcrumb-item active" aria-current="page">Месяцы</li>
           ) : null}
@@ -36,8 +36,8 @@ export function Breadcrumbs({ currentTitle }: Props) {
     return (
       <nav aria-label="breadcrumb" style={{ marginBottom: 12 }}>
         <ol className="breadcrumb">
-          <li className="breadcrumb-item"><a href="/">Главная</a></li>
-          <li className="breadcrumb-item"><a href="/months">Месяцы</a></li>
+          <li className="breadcrumb-item"><Link to="/">Главная</Link></li>
+          <li className="breadcrumb-item"><Link to="/months">Месяцы</Link></li>
           <li className="breadcrumb-item active" aria-current="page">{currentTitle || `#${id}`}</li>
         </ol>
       </nav>
