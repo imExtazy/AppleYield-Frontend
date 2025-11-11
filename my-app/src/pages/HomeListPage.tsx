@@ -21,13 +21,6 @@ export default function HomeListPage() {
 
   useEffect(() => {
     const q = params.get('q') || '';
-    // если в URL нет q, но в redux есть — восстановим q в URL (возврат со страницы назад/вперёд)
-    if (!q && qFromStore) {
-      const search = new URLSearchParams();
-      search.set('q', qFromStore);
-      navigate({ pathname: '/months', search: search.toString() }, { replace: true });
-      return;
-    }
     if (q !== qFromStore) dispatch(setQ(q));
     setLoading(true);
     setError(null);

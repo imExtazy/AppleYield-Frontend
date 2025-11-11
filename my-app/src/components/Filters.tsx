@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../store';
-import { setQ } from '../store/filtersSlice';
+import { setQ, reset } from '../store/filtersSlice';
 
 export function Filters() {
   const [params] = useSearchParams();
@@ -26,6 +26,12 @@ export function Filters() {
     navigate({ pathname: '/months', search: search.toString() });
   };
 
+  const onReset = () => {
+    setQLocal('');
+    dispatch(reset());
+    navigate({ pathname: '/months', search: '' });
+  };
+
   return (
     <Form onSubmit={onSubmit} className="ay-search-form">
       <Form.Control
@@ -36,6 +42,11 @@ export function Filters() {
         onChange={(e) => setQLocal(e.target.value)}
       />
       <Button type="submit" className="ay-btn-sm">Найти</Button>
+      {q && (
+        <Button type="button" className="ay-btn-sm" onClick={onReset}>
+          Сбросить
+        </Button>
+      )}
     </Form>
   );
 }

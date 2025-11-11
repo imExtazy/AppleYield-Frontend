@@ -7,6 +7,8 @@ html, body {
   color: #111;
   font-family: "Roboto", system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
 }
+/* На лендинге фон прозрачный, чтобы было видно видео */
+body.ay-landing-page { background: transparent; }
 
 /* Сброс дефолтного шаблона Vite (убираем центрирование всего body) */
 body {
@@ -33,6 +35,34 @@ body {
 }
 @media (max-width: 575.98px) {
   .ay-header { height: 72px; padding: 0 12px; justify-content: flex-start; }
+}
+
+/* Landing video background */
+.ay-landing-page .ay-header { background: transparent; }
+.ay-video-bg {
+  position: fixed; inset: 0 auto auto 0; top: 0; left: 0; width: 100%; height: 100vh;
+  z-index: 0; overflow: hidden;
+}
+.ay-video-el { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ay-video-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); }
+/* Отступ под хедер, чтобы контент (hero) располагался в привычной зоне под шапкой */
+.ay-landing-spacer { height: 120px; }
+@media (max-width: 991.98px) {
+  .ay-landing-spacer { height: 96px; }
+}
+@media (max-width: 575.98px) {
+  .ay-landing-spacer { height: 72px; }
+}
+/* Контент поверх видео (только шапка поверх видео) */
+.ay-landing-page .ay-header,
+.ay-landing-page .ay-hero { position: relative; z-index: 1; }
+@media (max-width: 991.98px) {
+  .ay-video-bg { height: 360px; }
+  .ay-landing-spacer { height: 360px; }
+}
+@media (max-width: 575.98px) {
+  .ay-video-bg { height: 260px; }
+  .ay-landing-spacer { height: 260px; }
 }
 
 .ay-home-link {
@@ -252,7 +282,7 @@ body {
 /* Add-to-application button (same visual as outline) */
 .ay-btn-add { width: 115.54px; height: 39.83px; border-radius: 10px; background: #fff; color: #000; border: 1px solid #000; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; cursor: pointer; -webkit-appearance: none; appearance: none; font-family: inherit; font-size: inherit; font-weight: 500; }
 
-.ay-note { color: #444; font-size: 14px; }
+.ay-note { color: #ffffff; font-size: 18px; }
 .ay-main { font-weight: 500; }
 
 .ay-row {
@@ -446,5 +476,44 @@ body {
 @media (max-width: 575.98px) {
   .breadcrumb { font-size: 14px; }
 }
+
+/* Landing: белые хлебные крошки и белая шапка */
+.ay-landing-page nav[aria-label="breadcrumb"] { position: relative; z-index: 1; }
+.ay-landing-page .breadcrumb { color: #ffffff; }
+.ay-landing-page .breadcrumb .breadcrumb-item,
+.ay-landing-page .breadcrumb .breadcrumb-item a { color: #ffffff; text-decoration: none; }
+.ay-landing-page .breadcrumb .breadcrumb-item a:hover { text-decoration: underline; }
+.ay-landing-page .ay-home-title { color: #ffffff !important; }
+.ay-landing-page .ay-home-logo { filter: brightness(0) invert(1); }
+
+
+/* Landing: breadcrumbs right under header and white theme */
+.ay-landing-page nav[aria-label="breadcrumb"] { position: relative; z-index: 2; margin: 0 auto; padding: 0 24px; max-width: 1200px; }
+@media (max-width: 991.98px) { .ay-landing-page nav[aria-label="breadcrumb"] { padding: 0 16px; } }
+@media (max-width: 575.98px) { .ay-landing-page nav[aria-label="breadcrumb"] { padding: 0 12px; } }
+.ay-landing-page .breadcrumb { color: #ffffff; }
+.ay-landing-page .breadcrumb .breadcrumb-item,
+.ay-landing-page .breadcrumb .breadcrumb-item a { color: #ffffff; text-decoration: none; }
+.ay-landing-page .breadcrumb .breadcrumb-item a:hover { text-decoration: underline; }
+.ay-landing-page .ay-home-title { color: #ffffff !important; }
+.ay-landing-page .ay-home-logo { filter: brightness(0) invert(1); }
+
+/* Landing overrides: place breadcrumbs strictly under header */
+.ay-landing-page .ay-landing-spacer { height: 0 !important; }
+.ay-landing-page nav[aria-label="breadcrumb"] { margin-top: 120px; position: relative; z-index: 2; margin-left: auto; margin-right: auto; padding: 0 24px; max-width: 1200px; }
+@media (max-width: 991.98px) { .ay-landing-page nav[aria-label="breadcrumb"] { margin-top: 96px; padding: 0 16px; } }
+@media (max-width: 575.98px) { .ay-landing-page nav[aria-label="breadcrumb"] { margin-top: 72px; padding: 0 12px; } }
+.ay-landing-page .ay-hero { margin-top: 12px; }
+
+/* Landing video: adapt to viewport heights */
+.ay-video-el { object-position: center center; }
+@supports (height: 100svh) { .ay-video-bg { height: 100svh; } }
+@supports (height: 100dvh) { .ay-video-bg { height: 100dvh; } }
+
+
+/* Landing: override hero title and note color */
+.ay-landing-page .ay-hero-title { color: #ffffff; }
+.ay-note { color: #444; font-size: 14px; }
+.ay-landing-page .ay-note { color: #ffffff; font-size: 18px; }
 
 
