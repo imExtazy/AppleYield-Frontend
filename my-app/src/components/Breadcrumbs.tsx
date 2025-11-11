@@ -1,4 +1,6 @@
 import { Link, useLocation, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../store';
 
 interface Props { currentTitle?: string }
 
@@ -6,6 +8,7 @@ export function Breadcrumbs({ currentTitle }: Props) {
   const location = useLocation();
   const params = useParams();
   const path = location.pathname;
+  const q = useSelector((s: RootState) => s.filters.q);
 
   if (path === '/') {
     return (
@@ -33,11 +36,12 @@ export function Breadcrumbs({ currentTitle }: Props) {
 
   if (path.startsWith('/month/')) {
     const id = params.id;
+    const monthsLink = q ? `/months?q=${encodeURIComponent(q)}` : '/months';
     return (
       <nav aria-label="breadcrumb" style={{ marginBottom: 12 }}>
         <ol className="breadcrumb">
           <li className="breadcrumb-item"><Link to="/">Главная</Link></li>
-          <li className="breadcrumb-item"><Link to="/months">Месяцы</Link></li>
+          <li className="breadcrumb-item"><Link to={monthsLink}>Месяцы</Link></li>
           <li className="breadcrumb-item active" aria-current="page">{currentTitle || `#${id}`}</li>
         </ol>
       </nav>

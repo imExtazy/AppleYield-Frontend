@@ -25,8 +25,14 @@ body {
   justify-content: flex-start;
   padding: 0 24px;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible;
   padding-left: 0;
+}
+@media (max-width: 991.98px) {
+  .ay-header { height: 96px; padding: 0 16px; }
+}
+@media (max-width: 575.98px) {
+  .ay-header { height: 72px; padding: 0 12px; justify-content: flex-start; }
 }
 
 .ay-home-link {
@@ -54,6 +60,12 @@ body {
   justify-content: space-between;
   gap: 0;
 }
+@media (max-width: 991.98px) {
+  .ay-home { height: 80px; width: auto; gap: 12px; padding: 0 12px; }
+}
+@media (max-width: 575.98px) {
+  .ay-home { height: 56px; padding: 0 8px; gap: 8px; }
+}
 
 .ay-home-logo {
   width: 100px;
@@ -62,6 +74,12 @@ body {
   max-height: 100px;
   object-fit: contain;
   display: block;
+}
+@media (max-width: 991.98px) {
+  .ay-home-logo { width: 72px; height: 72px; max-width: 72px; max-height: 72px; }
+}
+@media (max-width: 575.98px) {
+  .ay-home-logo { width: 44px; height: 44px; max-width: 44px; max-height: 44px; }
 }
 
 .ay-home-title {
@@ -72,6 +90,32 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   margin-left: 0;
+}
+@media (max-width: 991.98px) {
+  .ay-home-title { font-size: 24px !important; }
+}
+@media (max-width: 575.98px) {
+  .ay-home-title { font-size: 18px !important; }
+}
+
+/* Burger menu (mobile) */
+.ay-burger { display: none; margin-left: auto; position: relative; }
+.ay-burger-btn {
+  width: 40px; height: 32px; background: transparent; border: none; padding: 0;
+  display: inline-flex; flex-direction: column; justify-content: space-between; cursor: pointer;
+}
+.ay-burger-line { display: block; height: 3px; width: 100%; background: #000; border-radius: 2px; }
+.ay-burger-menu {
+  position: absolute; right: 0; top: 100%; background: #fff; border: 1px solid #ddd; border-radius: 8px;
+  min-width: 160px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); padding: 8px; z-index: 1000;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.ay-burger-item { padding: 8px 10px; text-decoration: none; color: #000; border-radius: 6px; }
+.ay-burger-item:hover { background: #f3f3f3; }
+@media (max-width: 575.98px) {
+  .ay-home { display: none; }
+  .ay-burger { display: inline-flex; margin-left: 0; margin-right: auto; }
+  .ay-burger-menu { left: 0; right: auto; }
 }
 
 .ay-application-link {
@@ -89,6 +133,12 @@ body {
   box-sizing: border-box;
   min-height: calc(100vh - 120px); /* тянем контент ниже хэдера */
 }
+@media (max-width: 991.98px) {
+  .ay-container { padding: 16px; }
+}
+@media (max-width: 575.98px) {
+  .ay-container { padding: 12px; }
+}
 
 .ay-title { font-size: 28px; font-weight: 600; margin: 16px 0 12px; }
 
@@ -99,6 +149,16 @@ body {
 .ay-hero-title { text-align: center; color: #199C68; font-size: 36px; font-weight: 600; margin: 0; }
 .ay-search-center { margin-top: 30px; display: flex; justify-content: center; }
 .ay-search-form { display: flex; align-items: center; gap: 10px; margin: 0; }
+@media (max-width: 991.98px) {
+  .ay-hero-title { font-size: 30px; }
+}
+@media (max-width: 575.98px) {
+  .ay-hero-head { flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .ay-hero-spacer { display: none; }
+  .ay-hero-title { font-size: 22px; }
+  .ay-search-center { margin-top: 20px; }
+  .ay-search-form { width: 100%; flex-direction: column; align-items: stretch; gap: 8px; }
+}
 .ay-input-sm {
   width: 480px;
   height: 30px;
@@ -107,6 +167,9 @@ body {
   border-radius: 5px;
   font-size: 14px;
   box-sizing: border-box;
+}
+@media (max-width: 575.98px) {
+  .ay-input-sm { width: 100%; height: 36px; font-size: 16px; }
 }
 /* .ay-btn-sm { width: 100px; height: 30px; border-radius: 10px; } */
 .ay-btn-sm {
@@ -119,6 +182,9 @@ body {
   border: none;
   cursor: pointer;
   white-space: nowrap;
+}
+@media (max-width: 575.98px) {
+  .ay-btn-sm { width: 100%; height: 36px; font-size: 16px; }
 }
 .ay-btn-app { width: 100px; height: 50px; border-radius: 10px; background: #199C68; color: #fff; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; flex-direction: column; font-size: 16px; font-weight: 500; }
 .ay-btn-app small { font-size: 16px; font-weight: 500; }
@@ -225,6 +291,14 @@ body {
   object-fit: cover;
   border-radius: 20px;
 }
+@media (max-width: 991.98px) {
+  .ay-detail-card { width: 100%; }
+  .ay-detail-image { height: 320px; }
+}
+@media (max-width: 575.98px) {
+  .ay-detail-card { flex-direction: column; border-radius: 12px; }
+  .ay-detail-image { width: 100%; height: 200px; border-radius: 12px 12px 0 0; }
+}
 
 .ay-detail-info-wrapper {
   flex: 1;
@@ -232,6 +306,9 @@ body {
   flex-direction: column; /* ставим в колонку */
   justify-content: space-between; /* текст сверху, кнопка снизу */
   padding: 20px; /* добавим отступы */
+}
+@media (max-width: 575.98px) {
+  .ay-detail-info-wrapper { padding: 12px; }
 }
 
 .ay-detail-info {
@@ -249,6 +326,9 @@ body {
   margin: 0;
   font-size: 28px;
   font-weight: 600;
+}
+@media (max-width: 575.98px) {
+  .ay-detail-title { font-size: 22px; }
 }
 
 .ay-detail-description {
@@ -283,12 +363,21 @@ body {
   padding: 10px 12px;
   box-sizing: border-box;
 }
+@media (max-width: 1200px) {
+  .ay-app-item { width: 100%; }
+}
+@media (max-width: 575.98px) {
+  .ay-app-item { height: auto; align-items: flex-start; }
+}
 .ay-app-thumb {
   width: 100px;
   height: 80px;
   border-radius: 5px;
   object-fit: cover;
   flex: 0 0 auto;
+}
+@media (max-width: 575.98px) {
+  .ay-app-thumb { width: 80px; height: 60px; }
 }
 .ay-app-col { display: flex; flex-direction: column; gap: 2px; }
 .ay-app-name { font-weight: 600; gap: 16px}
@@ -310,6 +399,15 @@ body {
   overflow: hidden;
   color: #000000;
   font-size: 14px;
+}
+@media (max-width: 991.98px) {
+  .ay-app-row { flex-wrap: wrap; }
+  .ay-app-cell-name { width: 140px; font-size: 18px; }
+  .ay-app-cell-main { width: 100%; max-height: none; -webkit-line-clamp: unset; }
+}
+@media (max-width: 575.98px) {
+  .ay-app-cell-name { width: 100%; font-size: 16px; }
+  .ay-app-cell-main { width: 100%; }
 }
 .ay-app-cell-precip input,
 .ay-app-cell-temp input,
@@ -338,6 +436,15 @@ body {
 .ay-app-cell-comment textarea {
   resize: vertical;  /* позволяем менять размер вручную */
   min-height: 60px;
+}
+@media (max-width: 575.98px) {
+  .ay-app-cell-precip, .ay-app-cell-temp, .ay-app-cell-comment { width: 100%; }
+}
+
+/* Breadcrumbs */
+.breadcrumb { display: flex; flex-wrap: wrap; gap: 4px; }
+@media (max-width: 575.98px) {
+  .breadcrumb { font-size: 14px; }
 }
 
 

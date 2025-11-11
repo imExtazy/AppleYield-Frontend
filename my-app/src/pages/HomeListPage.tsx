@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Filters } from '../components/Filters';
 import { getMonths } from '../api/months';
 import type { ServiceMonth } from '../api/months';
@@ -12,6 +12,7 @@ import { setQ } from '../store/filtersSlice';
 
 export default function HomeListPage() {
   const [params] = useSearchParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const qFromStore = useSelector((s: RootState) => s.filters.q);
   const [loading, setLoading] = useState(true);
@@ -20,6 +21,13 @@ export default function HomeListPage() {
 
   useEffect(() => {
     const q = params.get('q') || '';
+    // если в URL нет q, но в redux есть — восстановим q в URL (возврат со страницы назад/вперёд)
+    if (!q && qFromStore) {
+      const search = new URLSearchParams();
+      search.set('q', qFromStore);
+      navigate({ pathname: '/months', search: search.toString() }, { replace: true });
+      return;
+    }
     if (q !== qFromStore) dispatch(setQ(q));
     setLoading(true);
     setError(null);

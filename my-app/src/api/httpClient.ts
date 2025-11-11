@@ -17,7 +17,18 @@ export async function httpRequest<TResponse = unknown, TBody = unknown>(
   const id = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
-    const res = await fetch(path.startsWith('/api') ? path : `/api${path}`, {
+    // Поддержка внешнего API для Tauri через VITE_API_BASE
+    const apiBase = (import.meta as any).env?.VITE_API_BASE as string | undefined;
+    let url: string;
+    if (apiBase && /^https?:\/\//.test(apiBase)) {
+      const base = apiBase.endsWith('/') ? apiBase.slice(0, -1) : apiBase;
+      const rel = path.startsWith('/api') ? path.slice(4) : path;
+      url = `${base}${rel.startsWith('/') ? '' : '/'}${rel}`;
+    } else {
+      url = path.startsWith('/api') ? path : `/api${path}`;
+    }
+
+    const res = await fetch(url, {
       method,
       headers: {
         'Content-Type': 'application/json',
