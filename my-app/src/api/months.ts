@@ -11,7 +11,7 @@ export interface ServiceMonth {
 export async function getMonths(q: string = ''): Promise<ServiceMonth[]> {
   try {
     const query = q ? `?q=${encodeURIComponent(q)}` : '';
-    return await httpRequest<ServiceMonth[]>(`/api/months${query}`);
+    return await httpRequest<ServiceMonth[]>(`/api/months/${query}`);
   } catch (e) {
     const status = (e as any)?.status as number | undefined;
     if (isNetworkError(e) || (typeof status === 'number' && status >= 400)) {
@@ -26,7 +26,7 @@ export async function getMonths(q: string = ''): Promise<ServiceMonth[]> {
 
 export async function getMonth(id: number): Promise<ServiceMonth> {
   try {
-    return await httpRequest<ServiceMonth>(`/api/months/${id}`);
+    return await httpRequest<ServiceMonth>(`/api/months/${id}/`);
   } catch (e) {
     const status = (e as any)?.status as number | undefined;
     if (isNetworkError(e) || (typeof status === 'number' && status >= 400)) {

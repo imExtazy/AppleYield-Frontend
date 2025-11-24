@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Filters } from '../components/Filters';
 import { getMonths } from '../api/months';
 import type { ServiceMonth } from '../api/months';
@@ -12,7 +12,7 @@ import { setQ } from '../store/filtersSlice';
 
 export default function HomeListPage() {
   const [params] = useSearchParams();
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const dispatch = useDispatch();
   const qFromStore = useSelector((s: RootState) => s.filters.q);
   const [loading, setLoading] = useState(true);
