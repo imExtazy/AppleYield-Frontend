@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Filters } from '../components/Filters';
 import { getMonths } from '../api/months';
 import type { ServiceMonth } from '../api/months';
@@ -9,12 +9,14 @@ import { MINIO_STATIC_BASE } from '../config';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../store';
 import { setQ } from '../store/filtersSlice';
+import { fetchCartThunk } from '../store/cartSlice';
 
 export default function HomeListPage() {
   const [params] = useSearchParams();
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const qFromStore = useSelector((s: RootState) => s.filters.q);
+  const cart = useSelector((s: RootState) => s.cart);
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState<ServiceMonth[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -22,6 +24,8 @@ export default function HomeListPage() {
   useEffect(() => {
     const q = params.get('q') || '';
     if (q !== qFromStore) dispatch(setQ(q));
+    // Обновляем корзину при заходе на страницу
+    dispatch(fetchCartThunk() as any);
     setLoading(true);
     setError(null);
     getMonths(q)
@@ -46,8 +50,15 @@ export default function HomeListPage() {
               return `${base}${p}`;
             };
             const src = isHosted ? baseUrl('month_cart.svg') : `${MINIO_STATIC_BASE}/month_cart.svg`;
+            const hasDraft = !!cart.orderId && cart.itemsCount > 0;
+            const className = `ay-cart-link ${hasDraft ? '' : 'ay-cart-disabled'}`.trim();
+            const onClick = () => {
+              if (hasDraft && cart.orderId) {
+                navigate(`/months_calculation/${cart.orderId}`);
+              }
+            };
             return (
-              <span className="ay-cart-link ay-cart-disabled" aria-label="Заявка отсутствует">
+              <span className={className} aria-label={hasDraft ? 'Открыть заявку' : 'Заявка отсутствует'} onClick={onClick} style={{ cursor: hasDraft ? 'pointer' : 'default' }}>
                 <img
                   className="ay-cart-icon"
                   src={src}
@@ -57,7 +68,7 @@ export default function HomeListPage() {
                     if (e.currentTarget.src !== fallback) e.currentTarget.src = fallback;
                   }}
                 />
-                <span className="ay-badge">0</span>
+                <span className="ay-badge">{cart.itemsCount || 0}</span>
               </span>
             );
           })()}

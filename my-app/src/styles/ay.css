@@ -148,6 +148,19 @@ body {
   .ay-burger-menu { left: 0; right: auto; }
 }
 
+.ay-nav .ay-nav-link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.ay-nav .ay-nav-link:hover,
+.ay-burger-item:hover {
+  text-decoration: underline;
+}
+
 .ay-application-link {
   display: inline-flex;
   flex-direction: column;
@@ -282,6 +295,26 @@ body {
 /* Add-to-application button (same visual as outline) */
 .ay-btn-add { width: 115.54px; height: 39.83px; border-radius: 10px; background: #fff; color: #000; border: 1px solid #000; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; cursor: pointer; -webkit-appearance: none; appearance: none; font-family: inherit; font-size: inherit; font-weight: 500; }
 
+.ay-btn-app { transition: top .2s linear, left .2s linear, box-shadow .2s linear; position: relative; top: 0; left: 0; }
+
+.ay-btn,
+.ay-btn-outline,
+.ay-btn-add,
+.ay-btn-app {
+  position: relative;
+  top: 0;
+  left: 0;
+  transition: top .2s linear, left .2s linear, box-shadow .2s linear;
+}
+.ay-btn:hover,
+.ay-btn-outline:hover,
+.ay-btn-add:hover,
+.ay-btn-app:hover {
+  box-shadow: 2px 2px #ffffff, 4px 4px #FC63B5;
+  top: -4px;
+  left: -4px;
+}
+
 .ay-note { color: #ffffff; font-size: 18px; }
 .ay-main { font-weight: 500; }
 
@@ -382,6 +415,50 @@ body {
 .ay-app-subtitle { margin-top: 10px; font-weight: 500; font-size: 16px; }
 .ay-app-meta { margin-top: 20px; font-weight: 500; font-size: 16px; color: #000000; }
 .ay-app-list { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+
+/* Header row above items */
+.ay-app-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;                 /* match .ay-app-item gap between thumb and row */
+  width: 1000px;             /* match .ay-app-item width */
+  margin: 8px 0 0 0;
+  padding: 0 44px 0 12px;    /* match .ay-app-item padding */
+  box-sizing: border-box;
+}
+@media (max-width: 1200px) {
+  .ay-app-header { width: 100%; }
+}
+.ay-app-thumb-spacer {
+  width: 100px;              /* match .ay-app-thumb width */
+  flex: 0 0 100px;
+  height: 1px;               /* just a spacer */
+}
+.ay-app-row-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 auto;            /* occupy remaining space after thumb spacer */
+  box-sizing: border-box;
+  font-weight: 400;           /* простой текст */
+}
+/* Обособленные подписи колонок — просто текст 14px */
+.ay-app-row-header .ay-app-cell-name,
+.ay-app-row-header .ay-app-cell-main,
+.ay-app-row-header .ay-app-cell-precip,
+.ay-app-row-header .ay-app-cell-temp,
+.ay-app-row-header .ay-app-cell-comment {
+  font-size: 14px;
+  line-height: 16px;
+  color: #111;
+}
+
+/* Убираем фон/границы у заголовков для колонок, чтобы были просто текстом */
+.ay-app-header .ay-app-cell-precip,
+.ay-app-header .ay-app-cell-temp,
+.ay-app-header .ay-app-cell-comment {
+  background: transparent;
+}
 .ay-app-item {
   width: 1000px;
   height: 100px;
@@ -392,6 +469,8 @@ body {
   gap: 12px;
   padding: 10px 12px;
   box-sizing: border-box;
+  position: relative;
+  padding-right: 44px; /* место под крестик, чтобы не перекрывал поле комментария */
 }
 @media (max-width: 1200px) {
   .ay-app-item { width: 100%; }
@@ -469,6 +548,36 @@ body {
 }
 @media (max-width: 575.98px) {
   .ay-app-cell-precip, .ay-app-cell-temp, .ay-app-cell-comment { width: 100%; }
+}
+
+/* Кнопка крестика удаления позиции в правом верхнем углу */
+.ay-app-item-close {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+.ay-app-item-close img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+/* Кнопки действий под списком позиций */
+.ay-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+.ay-actions .ay-btn {
+  height: 44px;
+  padding: 0 20px;
+  min-width: 200px;
 }
 
 /* Breadcrumbs */

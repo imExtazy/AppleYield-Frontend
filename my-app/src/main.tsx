@@ -8,6 +8,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
 import HomeListPage from './pages/HomeListPage'
 import MonthDetailPage from './pages/MonthDetailPage'
+import CalculationPage from './pages/CalculationPage'
+import OrdersListPage from './pages/OrdersListPage'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
+import ProfilePage from './pages/ProfilePage'
 import { Provider } from 'react-redux'
 import { store } from './store'
 // Register SW only in production build
@@ -23,6 +28,11 @@ const routes = [
       { index: true, element: <LandingPage /> },
       { path: 'months', element: <HomeListPage /> },
       { path: 'month/:id', element: <MonthDetailPage /> },
+      { path: 'months_calculation/:id', element: <CalculationPage /> },
+      { path: 'months_calculations', element: <OrdersListPage /> },
+      { path: 'login', element: <LoginPage /> },
+      { path: 'register', element: <RegisterPage /> },
+      { path: 'profile', element: <ProfilePage /> },
     ],
   },
 ]

@@ -1,4 +1,5 @@
 import { httpRequest, isNetworkError } from './httpClient';
+import { axiosInstance } from './axiosInstance';
 import { MOCK_CALCULATION_DETAIL, MOCK_CART } from '../mocks/calculation.ts';
 import type { ServiceMonth } from './months';
 
@@ -75,6 +76,16 @@ export async function deleteItem(orderId: number, serviceId: number): Promise<vo
   return await httpRequest<void>(`/api/months_calculation/${orderId}/month_indicators/${serviceId}/delete/`, {
     method: 'DELETE',
   });
+}
+
+export async function submitCalculation(id: number): Promise<CalculationDetail> {
+  const { data } = await axiosInstance.put<CalculationDetail>(`/months_calculation/${id}/submit/`);
+  return data;
+}
+
+export async function deleteCalculation(id: number): Promise<void> {
+  // Сервер ожидает DELETE на /api/months_calculation/{id}/delete/
+  await httpRequest<void>(`/api/months_calculation/${id}/delete/`, { method: 'DELETE' });
 }
 
 

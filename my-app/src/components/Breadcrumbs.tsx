@@ -48,6 +48,17 @@ export function Breadcrumbs({ currentTitle }: Props) {
     );
   }
 
+  if (path === '/months_calculations') {
+    return (
+      <nav aria-label="breadcrumb" style={{ marginBottom: 12 }}>
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item"><Link to="/">Главная</Link></li>
+          <li className="breadcrumb-item active" aria-current="page">Заявки</li>
+        </ol>
+      </nav>
+    );
+  }
+
   if (path.startsWith('/months_calculation/')) {
     const id = params.id;
     return (

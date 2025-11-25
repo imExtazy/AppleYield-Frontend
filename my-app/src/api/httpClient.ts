@@ -28,10 +28,20 @@ export async function httpRequest<TResponse = unknown, TBody = unknown>(
       url = path.startsWith('/api') ? path : `/api${path}`;
     }
 
+    // CSRF для небезопасных методов (treat only GET as safe)
+    const isUnsafe = method !== 'GET';
+    const getCookie = (name: string): string | undefined => {
+      if (typeof document === 'undefined') return undefined;
+      const m = document.cookie.match(new RegExp('(^|; )' + encodeURIComponent(name) + '=([^;]*)'));
+      return m ? decodeURIComponent(m[2]) : undefined;
+    };
+    const csrf = isUnsafe ? (getCookie('csrftoken') || getCookie('csrf') || getCookie('CSRF-TOKEN')) : undefined;
+
     const res = await fetch(url, {
       method,
       headers: {
         'Content-Type': 'application/json',
+        ...(csrf ? { 'X-CSRFToken': csrf } : {}),
         ...headers,
       },
       credentials: 'include',

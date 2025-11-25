@@ -9,6 +9,7 @@
     "postbuild": "cp dist/index.html dist/404.html",
     "lint": "eslint .",
     "preview": "vite preview",
+    "gen:api": "openapi-generator-cli generate -i http://127.0.0.1:8000/swagger.json -g typescript-axios -o src/generated --additional-properties=supportsES6=true,withSeparateModelsAndApi=false,modelPropertyNaming=original",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "tauri": "tauri",
@@ -25,6 +26,7 @@
     "react-router-dom": "^7.9.4"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.14.1",
     "@eslint/js": "^9.36.0",
     "@tauri-apps/cli": "^2.9.4",
     "@types/node": "^24.6.0",
