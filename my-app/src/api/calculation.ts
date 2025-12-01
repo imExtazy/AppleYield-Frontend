@@ -84,8 +84,23 @@ export async function submitCalculation(id: number): Promise<CalculationDetail> 
 }
 
 export async function deleteCalculation(id: number): Promise<void> {
-  // Сервер ожидает DELETE на /api/months_calculation/{id}/delete/
-  await httpRequest<void>(`/api/months_calculation/${id}/delete/`, { method: 'DELETE' });
+  const attempts: Array<() => Promise<any>> = [
+    () => axiosInstance.post(`/months_calculation/${id}/delete/`),
+    () => axiosInstance.post(`/months_calculation/${id}/delete`),
+    () => axiosInstance.delete(`/months_calculation/${id}/`),
+  ];
+  let lastError: any;
+  for (const run of attempts) {
+    try {
+      await run();
+      return;
+    } catch (e) {
+      lastError = e;
+      // 404/405/CSRF — пробуем следующий вариант
+      continue;
+    }
+  }
+  throw lastError;
 }
 
 
