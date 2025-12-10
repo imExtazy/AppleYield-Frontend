@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 // Базовый axios-инстанс для всех axios-запросов (сессионные cookie)
-// Для tauri можно использовать VITE_API_BASE, как и в httpRequest
 const apiBase = (import.meta as any).env?.VITE_API_BASE as string | undefined;
 const baseURL = apiBase && /^https?:\/\//.test(apiBase) ? apiBase : '/api';
 
@@ -19,10 +18,8 @@ function getCookie(name: string): string | undefined {
   return m ? decodeURIComponent(m[2]) : undefined;
 }
 
-// Пробрасываем CSRF-токен для небезопасных методов
 axiosInstance.interceptors.request.use((config) => {
   const method = (config.method || 'get').toUpperCase();
-  // treat only GET as safe
   if (method !== 'GET') {
     const token = getCookie('csrftoken') || getCookie('csrf') || getCookie('CSRF-TOKEN');
     if (token) {

@@ -21,6 +21,7 @@ export function AppNavbar() {
   const cart = useSelector((s: RootState) => s.cart);
   const location = useLocation();
   const navigate = useNavigate();
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     dispatch(fetchMeThunk() as any);
@@ -96,7 +97,7 @@ export function AppNavbar() {
           </nav>
         )}
       </div>
-      <nav className="ay-nav" style={{ marginLeft: 'auto', display: 'flex', gap: 16, alignItems: 'center', paddingRight: 8 }}>
+      <nav className="ay-nav" style={{ marginLeft: 'auto', display: 'flex', gap: 16, alignItems: 'center', paddingRight: 8, color: isHome ? '#fff' : '#111' }}>
         <button
           className="ay-nav-link"
           style={{ textDecoration: location.pathname.startsWith('/months_calculations') ? 'underline' : 'none' }}
@@ -139,6 +140,7 @@ export function AppNavbar() {
               Профиль
             </button>
             <button className="ay-nav-link" onClick={onLogout}>Выход</button>
+            <span className="ay-nav-greeting" style={{ color: isHome ? '#fff' : '#111' }}>Привет, {auth.email}</span>
           </>
         )}
       </nav>

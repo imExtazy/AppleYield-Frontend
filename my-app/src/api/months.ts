@@ -4,6 +4,7 @@ import { MOCK_MONTHS, MOCK_MONTH_BY_ID } from '../mocks/months.ts';
 export interface ServiceMonth {
   month_id: number;
   month_name: string;
+  description: string;
   main_value: string;
   image_url: string;
 }
@@ -11,7 +12,15 @@ export interface ServiceMonth {
 export async function getMonths(q: string = ''): Promise<ServiceMonth[]> {
   try {
     const query = q ? `?q=${encodeURIComponent(q)}` : '';
-    return await httpRequest<ServiceMonth[]>(`/api/months/${query}`);
+    const raw = await httpRequest<any[]>(`/api/months/${query}`);
+    // Нормализуем возможные расхождения бэка: description vs descriptions
+    return (raw || []).map((m: any) => ({
+      month_id: m.month_id ?? m.id ?? m.monthId,
+      month_name: m.month_name ?? m.name ?? '',
+      description: m.description ?? m.descriptions ?? '',
+      main_value: m.main_value ?? m.mainValue ?? '',
+      image_url: m.image_url ?? m.imageUrl ?? '',
+    })) as ServiceMonth[];
   } catch (e) {
     const status = (e as any)?.status as number | undefined;
     if (isNetworkError(e) || (typeof status === 'number' && status >= 400)) {
@@ -26,7 +35,14 @@ export async function getMonths(q: string = ''): Promise<ServiceMonth[]> {
 
 export async function getMonth(id: number): Promise<ServiceMonth> {
   try {
-    return await httpRequest<ServiceMonth>(`/api/months/${id}/`);
+    const m = await httpRequest<any>(`/api/months/${id}/`);
+    return {
+      month_id: m.month_id ?? m.id ?? m.monthId,
+      month_name: m.month_name ?? m.name ?? '',
+      description: m.description ?? m.descriptions ?? '',
+      main_value: m.main_value ?? m.mainValue ?? '',
+      image_url: m.image_url ?? m.imageUrl ?? '',
+    } as ServiceMonth;
   } catch (e) {
     const status = (e as any)?.status as number | undefined;
     if (isNetworkError(e) || (typeof status === 'number' && status >= 400)) {

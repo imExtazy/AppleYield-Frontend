@@ -17,6 +17,8 @@ export interface MeInfo {
   email: string;
   first_name: string;
   last_name: string;
+  is_staff?: boolean;
+  is_superuser?: boolean;
 }
 
 export async function me(): Promise<MeInfo> {

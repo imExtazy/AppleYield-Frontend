@@ -43,7 +43,8 @@ export default function MonthDetailPage() {
         <div className="ay-detail-info-wrapper">
           <div className="ay-detail-info">
             <h1 className="ay-detail-title">{data.month_name}</h1>
-            <div className="ay-detail-description">{data.main_value}</div>
+            <div className="ay-detail-description">{data.description}</div>
+            <div className="ay-detail-description" style={{ marginTop: 8 }}>{data.main_value}</div>
           </div>
         </div>
       </div>

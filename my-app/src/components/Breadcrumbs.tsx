@@ -11,10 +11,16 @@ export function Breadcrumbs({ currentTitle }: Props) {
   const q = useSelector((s: RootState) => s.filters.q);
 
   if (path === '/') {
+    return null; // На главной странице хлебные крошки скрыты
+  }
+
+  // ВАЖНО: сначала обрабатываем /months_calculations, чтобы не перехватывалось условием /months
+  if (path === '/months_calculations' || path.startsWith('/months_calculations')) {
     return (
       <nav aria-label="breadcrumb" style={{ marginBottom: 12 }}>
         <ol className="breadcrumb">
-          <li className="breadcrumb-item active" aria-current="page">Главная</li>
+          <li className="breadcrumb-item"><Link to="/">Главная</Link></li>
+          <li className="breadcrumb-item active" aria-current="page">Заявки</li>
         </ol>
       </nav>
     );
@@ -43,17 +49,6 @@ export function Breadcrumbs({ currentTitle }: Props) {
           <li className="breadcrumb-item"><Link to="/">Главная</Link></li>
           <li className="breadcrumb-item"><Link to={monthsLink}>Месяцы</Link></li>
           <li className="breadcrumb-item active" aria-current="page">{currentTitle || `#${id}`}</li>
-        </ol>
-      </nav>
-    );
-  }
-
-  if (path === '/months_calculations') {
-    return (
-      <nav aria-label="breadcrumb" style={{ marginBottom: 12 }}>
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item"><Link to="/">Главная</Link></li>
-          <li className="breadcrumb-item active" aria-current="page">Заявки</li>
         </ol>
       </nav>
     );

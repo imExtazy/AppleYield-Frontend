@@ -20,11 +20,9 @@ export const loginThunk = createAsyncThunk(
   'auth/login',
   async (payload: { email: string; password: string }, { rejectWithValue, dispatch }) => {
     try {
-      // Прогреваем CSRF-cookie (явный эндпоинт, всегда AllowAny и ensure_csrf_cookie)
       try { await axiosInstance.get('/csrf/'); } catch {}
       await axiosInstance.post('/login', payload);
       const { data } = await axiosInstance.get<MeInfo>('/users/me/');
-      // Обновляем корзину после входа
       dispatch(fetchCartThunk() as any);
       return data;
     } catch (e: any) {

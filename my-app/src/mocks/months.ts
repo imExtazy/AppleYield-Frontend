@@ -8,18 +8,21 @@ export const MOCK_MONTHS: ServiceMonth[] = [
   {
     month_id: 1,
     month_name: 'Январь',
+    description: 'Описание месяца Январь',
     main_value: 'Темп: -5°C\nОсадки: 30 мм',
     image_url: DEFAULT_IMG,
   },
   {
     month_id: 2,
     month_name: 'Февраль',
+    description: 'Описание месяца Февраль',
     main_value: 'Темп: -3°C\nОсадки: 25 мм',
     image_url: DEFAULT_IMG,
   },
   {
     month_id: 3,
     month_name: 'Март',
+    description: 'Описание месяца Март',
     main_value: 'Темп: +2°C\nОсадки: 28 мм',
     image_url: DEFAULT_IMG,
   },
@@ -30,6 +33,7 @@ export function MOCK_MONTH_BY_ID(id: number): ServiceMonth {
     MOCK_MONTHS.find((m) => m.month_id === id) || {
       month_id: id,
       month_name: `Месяц #${id}`,
+      description: 'Описание недоступно',
       main_value: 'Нет данных',
       image_url: DEFAULT_IMG,
     }

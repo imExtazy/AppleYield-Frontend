@@ -90,12 +90,31 @@ const ordersListSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchOrdersListThunk.pending, (state) => {
-        state.loading = true;
+        // Не включаем индикатор загрузки при активном списке, чтобы не "дёргать" таблицу на polling
+        if (state.items.length === 0) state.loading = true;
         state.error = null;
       })
       .addCase(fetchOrdersListThunk.fulfilled, (state, action: PayloadAction<OrderShort[]>) => {
         state.loading = false;
-        state.items = action.payload;
+        const next = action.payload || [];
+        // Обновляем список только при реальных изменениях, чтобы уменьшить "дёрганье" UI на polling
+        const prev = state.items || [];
+        let changed = prev.length !== next.length;
+        if (!changed) {
+          for (let i = 0; i < prev.length; i++) {
+            const a = prev[i];
+            const b = next[i];
+            if (!b || a.id !== b.id ||
+                a.status !== b.status ||
+                a.submitted_at !== b.submitted_at ||
+                a.finished_at !== b.finished_at ||
+                a.result_value !== b.result_value) {
+              changed = true;
+              break;
+            }
+          }
+        }
+        if (changed) state.items = next;
       })
       .addCase(fetchOrdersListThunk.rejected, (state, action) => {
         state.loading = false;
